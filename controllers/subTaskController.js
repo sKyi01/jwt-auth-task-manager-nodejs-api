@@ -39,7 +39,7 @@ exports.deleteSubTask = async (req, res) => {
   try {
     const { subtask_id } = req.params;
 
-    const deletedSubTask = await SubTask.findByIdAndUpdate(
+    const deletedSubTask = await SubTask.findByIdAndDelete(
       subtask_id,
       { deleted_at: Date.now() },
       { new: true }
@@ -54,8 +54,7 @@ exports.deleteSubTask = async (req, res) => {
 
 exports.getAllUserSubTasks = async (req, res) => {
   try {
-    const { task_id } = req.query;
-    const user_id = req.user.user_id;
+    const { task_id, user_id } = req.query;
     
     const query = task_id ? { task_id, user_id } : { user_id };
     const subTasks = await SubTask.find(query);

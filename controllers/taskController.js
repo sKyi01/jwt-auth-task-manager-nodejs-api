@@ -52,13 +52,13 @@ exports.getAllUserTasks = async (req, res) => {
 // 5. Update task
 exports.updateTask = async (req, res) => {
   try {
-    const { due_date, status } = req.body;
+    const { title,due_date, status } = req.body;
     const { task_id } = req.params;
 
     // Update task based on task_id
     const updatedTask = await Task.findByIdAndUpdate(
       task_id,
-      { due_date, status },
+      { title,due_date, status },
       { new: true }
     );
 
@@ -75,7 +75,7 @@ exports.deleteTask = async (req, res) => {
     const { task_id } = req.params;
 
     // Soft delete task based on task_id
-    const deletedTask = await Task.findByIdAndUpdate(
+    const deletedTask = await Task.findByIdAndDelete(
       task_id,
       { deleted_at: Date.now() },
       { new: true }
